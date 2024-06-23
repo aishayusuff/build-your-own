@@ -1,38 +1,40 @@
 import java.io.File
+import java.nio.charset.Charset
 
 fun main (args: Array<String>) {
-    //Check that the args are 2
-    //Check that the first arg is the cmd: -c
-    //check that the file exists
-    //Get and output the number of bytes
 
     try {
-//        if(args.size != 2 || args[0] != "-c" && args[0] != "-l" && args[0] != "-w") {
-//            println("This program requires two arguments; the first arg is cmd '-c' or '-l' or '-w', and the second arg is the file name")
-//        }
-
         //checks that file exists and is valid
         val file = File(args[1]);
         if (!file.exists() && !file.isFile()) {
             println("This program requires a valid file path")
         }
 
+        var numOfBytesInFile = 0L
+        var numOfLines = 0
+        var wordCount = 0
+
         when (args[0]) {
-            //command that outputs bytes of file
+            //command that outputs bytes of a file
             "-c" -> {
-                val numOfBytesInFile = file.length()
+                 numOfBytesInFile = file.length()
                 println("This file ($file) has $numOfBytesInFile bytes")
             }
-            //command that outputs num of lines in the file
+            //command that outputs num of lines in a file
             "-l" -> {
-                val numOfLines = file.readLines().size
+                numOfLines = file.readLines().size
                 println("This file $file contains $numOfLines lines");
             }
-            //command that outputs num of words in the file
+            //command that outputs num of words in a file
             "-w" -> {
                 val words = (file.readText()).split(Regex("\\s+"))
-                val wordCount = words.count { it.isNotBlank() }
+                wordCount = words.count { it.isNotBlank() }
                 println("This file $file contains $wordCount words")
+            }
+            //command that outputs the number of characters in a file.
+            "-m" -> {
+                val numOfChars = file.readText(Charset.forName("UTF-8")).length
+                println("This file $file contains $numOfChars numbers of characters")
             }
             else -> {
                 println("Please enter a valid command")
