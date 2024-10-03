@@ -23,10 +23,10 @@ fun getNumOfBytes(file: File, fileChunkSize: Int = 1024 * 1024): Long {
 fun getNumOfLines(file: File): Long {
     var lineCount = 0L
     BufferedReader(FileReader(file)).use { reader ->
-        val firstLine: String? = reader.readLine();
-        while (firstLine != null) {
+        var line: String? = reader.readLine();
+        while (line != null) {
             lineCount++
-            reader.readLine()
+            line = reader.readLine()
         }
     }
     return lineCount;
