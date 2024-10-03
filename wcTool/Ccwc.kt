@@ -1,36 +1,7 @@
 import java.io.File
-import java.io.FileInputStream
-import java.nio.charset.Charset
+
 
 fun main (args: Array<String>) {
-    //helper functions
-    fun getNumOfBytes(file: File, fileChunkSize: Int = 1024 * 1024): Long {
-        var totalByte: Long = 0
-
-        //read files in increments for scalability
-        FileInputStream(file).use { stream ->
-            val buffer = ByteArray(fileChunkSize)
-            var byteRead: Int
-
-            while (stream.read(buffer).also { byteRead = it } != -1) {
-                totalByte += byteRead
-            }
-        }
-        return totalByte
-    }
-
-    fun getNumOfLines(file: File): Int {
-        return file.readLines().size
-    }
-
-    fun getNumOfWords(file: File): Int {
-        return file.readText().split(Regex("\\s+")).count{it.isNotBlank()}
-    }
-
-    fun getNumOfChars(file: File): Int {
-        return file.readText(Charset.forName("UTF-8")).length
-    }
-
     try {
         //Checks that args exist
         if (args.isEmpty()) {
